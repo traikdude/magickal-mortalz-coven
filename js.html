@@ -3,7 +3,7 @@
    🌙✨ MAGICKAL MORTALZ COVEN - CLIENT-SIDE JAVASCRIPT ✨🌙
    ═══════════════════════════════════════════════════════════════════════════════
    📅 2025
-   🎨 Mystical UI Architecture (Restored & Enhanced)
+   🎨 Mystical UI Architecture (Modal Fix)
    ═══════════════════════════════════════════════════════════════════════════════ */
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -67,6 +67,9 @@ function getMoonPhase() {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🌙 Magickal Mortalz Coven App initializing...');
     
+    // 🛡️ MODAL SAFETY: Close all modals on load
+    closeAllModals();
+    
     // 🔮 Initialize Mystical Elements
     initMoonPhase();
     initCursorEffects();
@@ -78,8 +81,6 @@ document.addEventListener('DOMContentLoaded', function() {
 function initMoonPhase() {
     const phase = getMoonPhase();
     APP_STATE.moonPhase = phase;
-    console.log('Current Moon Phase:', phase);
-    
     const moonDisplay = document.getElementById('moon-phase-display');
     if (moonDisplay) moonDisplay.textContent = phase;
 }
@@ -392,7 +393,7 @@ function createStarParticle(x, y) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 🚦 NAVIGATION & MODALS
+// 🚦 NAVIGATION & MODALS [CRITICAL FIX: Modal Manager]
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function showSection(sectionId, clickedLink) {
@@ -410,15 +411,45 @@ function toggleSidebar() {
     document.getElementById('sidebar').classList.toggle('open');
 }
 
+// 🛡️ CLOSE ALL MODALS before opening new ones
+function closeAllModals() {
+    document.querySelectorAll('.modal-overlay').forEach(modal => {
+        modal.classList.remove('active');
+    });
+    document.body.style.overflow = '';
+}
+
 function openModal(modalId) {
-    document.getElementById(modalId).classList.add('active');
-    document.body.style.overflow = 'hidden';
+    closeAllModals(); // Ensure exclusivity
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    } else {
+        console.error('Modal not found:', modalId);
+    }
 }
 
 function closeModal(modalId) {
-    document.getElementById(modalId).classList.remove('active');
-    document.body.style.overflow = '';
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
 }
+
+// Close on backdrop click (Event Delegation)
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal-overlay')) {
+        e.target.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+// Close on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeAllModals();
+});
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 📝 ACTIONS (CRUD)
