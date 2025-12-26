@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌙 Magickal Mortalz Coven</title>
+    
+    <!-- 🎨 JOYFUL UI PROTOCOL: IMPORTING FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- 🎨 CSS INCLUDE -->
+    <?!= include('css'); ?>
+</head>
+<body>
+    
+    <!-- 🔄 LOADING OVERLAY -->
+    <div id="loading-overlay" class="loading-overlay active">
+        <div class="loading-content">
+            <div class="loading-spinner">🌙</div>
+            <p>Summoning the Magick...</p>
+        </div>
+    </div>
+
+    <!-- 📑 SIDEBAR NAVIGATION (N1) -->
+    <nav class="sidebar" id="sidebar">
+        <div class="brand">
+            <i class="fa-solid fa-moon"></i>
+            <span>Magickal Mortalz</span>
+        </div>
+        
+        <!-- 👤 User Profile Mini -->
+        <div class="user-mini" id="user-mini">
+            <div class="user-avatar" id="user-avatar">🧙‍♂️</div>
+            <div class="user-info">
+                <span class="user-name" id="user-craft-name">Loading...</span>
+                <span class="user-degree" id="user-degree">Neophyte</span>
+            </div>
+        </div>
+        
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a class="nav-link active" data-section="dashboard" onclick="showSection('dashboard', this)">
+                    <i class="fa-solid fa-house-chimney"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-section="curriculum" onclick="showSection('curriculum', this)">
+                    <i class="fa-solid fa-book-open"></i> Curriculum
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-section="attendance" onclick="showSection('attendance', this)">
+                    <i class="fa-solid fa-calendar-check"></i> Attendance
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-section="grimoire" onclick="showSection('grimoire', this)">
+                    <i class="fa-solid fa-scroll"></i> Grimoire
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-section="campus" onclick="showSection('campus', this)">
+                    <i class="fa-solid fa-school"></i> Online Campus
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-section="profile" onclick="showSection('profile', this)">
+                    <i class="fa-solid fa-user-astronaut"></i> Profile
+                </a>
+            </li>
+        </ul>
+        
+        <!-- 📱 Mobile Menu Toggle -->
+        <button class="sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- 📱 MAIN CONTENT AREA -->
+    <main class="main-content" id="main-content">
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- 🏠 DASHBOARD SECTION -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <section id="dashboard" class="section active">
+            <div class="header">
+                <h1>Welcome Back, Witch! 🧙🏾‍♀️✨</h1>
+                <p>Magickal Mortalz Coven • South Florida's Premiere Brotherhood</p>
+            </div>
+            
+            <!-- 📊 Stats Cards Row -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-progress">0%</span>
+                        <span class="stat-label">Year Progress</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎃</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-sabbats">0/8</span>
+                        <span class="stat-label">Sabbats Attended</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📜</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-grimoire">0</span>
+                        <span class="stat-label">Grimoire Entries</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🌙</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-esbats">0</span>
+                        <span class="stat-label">Esbats Attended</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 🌙 Upcoming Events -->
+            <div class="upcoming-section">
+                <h2>🌙 Upcoming Sabbats</h2>
+                <div class="upcoming-grid" id="upcoming-sabbats">
+                    <!-- Populated by JavaScript -->
+                    <div class="loading-placeholder">Loading sabbats...</div>
+                </div>
+            </div>
+            
+            <div class="grid-container">
+                <div class="card" onclick="showSection('curriculum', document.querySelector('[data-section=curriculum]'))">
+                    <div class="card-icon">🎓</div>
+                    <h3>Your Path</h3>
+                    <p>Track your progress through the 4-year initiatory system.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="dashboard-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <span class="tag" id="dashboard-degree-tag">Neophyte</span>
+                </div>
+                <div class="card" onclick="showSection('grimoire', document.querySelector('[data-section=grimoire]'))">
+                    <div class="card-icon">🔮</div>
+                    <h3>Book of Shadows</h3>
+                    <p>Your personal grimoire for spells, rituals, and magickal notes.</p>
+                    <span class="tag">Personal</span>
+                </div>
+                <div class="card" onclick="showSection('campus', document.querySelector('[data-section=campus]'))">
+                    <div class="card-icon">🏳️‍🌈</div>
+                    <h3>Community</h3>
+                    <p>Connect with gay Wiccans, Elder Rowan, and Sage Phoenix.</p>
+                    <span class="tag">Online Campus</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- 📚 CURRICULUM SECTION -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <section id="curriculum" class="section">
+            <div class="header">
+                <h1>The 4-Year Path 📜</h1>
+                <p>From Neophyte to High Priesthood</p>
+            </div>
+            
+            <!-- 📊 Overall Progress -->
+            <div class="curriculum-overview">
+                <div class="progress-overview">
+                    <h3>Your Overall Progress</h3>
+                    <div class="big-progress-container">
+                        <div class="big-progress-bar" id="curriculum-overall-progress"></div>
+                        <span class="big-progress-text" id="curriculum-progress-text">0%</span>
+                    </div>
+                    <div class="progress-stats">
+                        <span><strong id="modules-completed">0</strong> Completed</span>
+                        <span><strong id="modules-in-progress">0</strong> In Progress</span>
+                        <span><strong id="modules-remaining">0</strong> Remaining</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 🎓 Year Cards -->
+            <div class="grid-container">
+                <!-- Year 1 -->
+                <div class="card year-card" data-year="1" onclick="openYearModal(1)">
+                    <div class="card-icon">🌱</div>
+                    <h3>Year 1: Neophyte</h3>
+                    <p>Foundations & Tools. Learning the basics of energy work and history.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="year1-progress" style="width: 0%"></div>
+                    </div>
+                    <span class="tag">Beginner</span>
+                </div>
+                <!-- Year 2 -->
+                <div class="card year-card" data-year="2" onclick="openYearModal(2)">
+                    <div class="card-icon">🛡️</div>
+                    <h3>Year 2: 1st Degree</h3>
+                    <p>Protection & Psychic Defense. Mastering the shield and the sword.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="year2-progress" style="width: 0%"></div>
+                    </div>
+                    <span class="tag">Intermediate</span>
+                </div>
+                <!-- Year 3 -->
+                <div class="card year-card" data-year="3" onclick="openYearModal(3)">
+                    <div class="card-icon">🌘</div>
+                    <h3>Year 3: 2nd Degree</h3>
+                    <p>Goddess Focus. Deep emotional work and lunar mysteries.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="year3-progress" style="width: 0%"></div>
+                    </div>
+                    <span class="tag">Advanced</span>
+                </div>
+                <!-- Year 4 -->
+                <div class="card year-card" data-year="4" onclick="openYearModal(4)">
+                    <div class="card-icon">☀️</div>
+                    <h3>Year 4: 3rd Degree</h3>
+                    <p>God Focus. Solar power, leadership, and high magic.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="year4-progress" style="width: 0%"></div>
+                    </div>
+                    <span class="tag">Expert</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- 📅 ATTENDANCE SECTION -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <section id="attendance" class="section">
+            <div class="header">
+                <h1>Sabbat & Esbat Attendance 📅</h1>
+                <p>Track your participation in the Wheel of the Year</p>
+            </div>
+            
+            <!-- 📊 Attendance Stats -->
+            <div class="attendance-stats">
+                <div class="stat-card wide">
+                    <div class="stat-icon">🎃</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="att-sabbat-count">0/8</span>
+                        <span class="stat-label">Sabbats This Year</span>
+                    </div>
+                </div>
+                <div class="stat-card wide">
+                    <div class="stat-icon">🌕</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="att-esbat-count">0</span>
+                        <span class="stat-label">Esbats Attended</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 🎡 Wheel of the Year -->
+            <div class="wheel-section">
+                <h2>🎡 The Wheel of the Year</h2>
+                <div class="sabbat-grid" id="sabbat-grid">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- 📋 Attendance Records -->
+            <div class="records-section">
+                <div class="section-header">
+                    <h2>📋 Attendance History</h2>
+                    <button class="btn-primary" onclick="openRecordAttendanceModal()">
+                        <i class="fa-solid fa-plus"></i> Record Attendance
+                    </button>
+                </div>
+                <div class="records-table-container">
+                    <table class="records-table" id="attendance-table">
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>Type</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendance-tbody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- 📜 GRIMOIRE SECTION -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <section id="grimoire" class="section">
+            <div class="header">
+                <h1>Book of Shadows 🕯️</h1>
+                <p>Your personal grimoire of magickal knowledge</p>
+            </div>
+            
+            <!-- 🔍 Search & Filter -->
+            <div class="grimoire-controls">
+                <div class="search-box">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="grimoire-search" placeholder="Search entries..." oninput="filterGrimoireEntries()">
+                </div>
+                <select id="grimoire-category-filter" onchange="filterGrimoireByCategory()">
+                    <option value="all">All Categories</option>
+                    <!-- Populated by JavaScript -->
+                </select>
+                <button class="btn-primary" onclick="openNewEntryModal()">
+                    <i class="fa-solid fa-plus"></i> New Entry
+                </button>
+            </div>
+            
+            <!-- 📊 Category Stats -->
+            <div class="category-stats" id="grimoire-category-stats">
+                <!-- Populated by JavaScript -->
+            </div>
+            
+            <!-- 📜 Entries Grid -->
+            <div class="grimoire-grid" id="grimoire-entries">
+                <!-- Populated by JavaScript -->
+            </div>
+            
+            <!-- 📚 Coven Rituals (Shared Knowledge) -->
+            <div class="coven-rituals">
+                <h2>⭕ Coven Ritual Library</h2>
+                <p class="subtitle">Shared knowledge from the Magickal Mortalz tradition</p>
+                <div class="grid-container">
+                    <div class="card" onclick="openRitualModal('circle')">
+                        <div class="card-icon">⭕</div>
+                        <h3>Casting the Circle</h3>
+                        <p>Create sacred space between the worlds.</p>
+                    </div>
+                    <div class="card" onclick="openRitualModal('air')">
+                        <div class="card-icon">🌬️</div>
+                        <h3>Element of Air</h3>
+                        <p>Invoke Archangel Raphael and King Eurius.</p>
+                    </div>
+                    <div class="card" onclick="openRitualModal('fire')">
+                        <div class="card-icon">🔥</div>
+                        <h3>Element of Fire</h3>
+                        <p>Invoke Archangel Michael and King Djin.</p>
+                    </div>
+                    <div class="card" onclick="openRitualModal('water')">
+                        <div class="card-icon">💧</div>
+                        <h3>Element of Water</h3>
+                        <p>Invoke Archangel Gabriel and King Nixsa.</p>
+                    </div>
+                    <div class="card" onclick="openRitualModal('earth')">
+                        <div class="card-icon">🌿</div>
+                        <h3>Element of Earth</h3>
+                        <p>Invoke Archangel Uriel and the Great Stag.</p>
+                    </div>
+                    <div class="card" onclick="openRitualModal('mundane')">
+                        <div class="card-icon">🏙️</div>
+                        <h3>Mundane Return</h3>
+                        <p>Grounding energy and closing the portal.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- 🏫 CAMPUS SECTION -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <section id="campus" class="section">
+            <div class="header">
+                <h1>Online Campus 🏫</h1>
+                <p>A brotherhood for gay Wiccans in South Florida</p>
+            </div>
+            
+            <div class="card mission-card">
+                <div class="card-icon">🌴</div>
+                <h3>Our Mission</h3>
+                <p>We strive to create a safe, magickal space for brotherhood, learning, and spiritual growth. Join us for weekly classes on Tarot, Crystals, and Deity work. Our coven celebrates diversity, embraces LGBTQ+ practitioners, and honors both traditional Wiccan practices and modern innovations.</p>
+            </div>
+            
+            <h2 class="section-title">👨‍🏫 Our Elders</h2>
+            <div class="grid-container">
+                <div class="card elder-card">
+                    <div class="elder-avatar">🧙‍♂️</div>
+                    <h3>Elder Rowan</h3>
+                    <p class="elder-specialty">Herbology & Traditional Witchcraft</p>
+                    <p>With over 20 years of practice, Elder Rowan guides initiates through the green path of plant magick and traditional British Witchcraft.</p>
+                </div>
+                <div class="card elder-card">
+                    <div class="elder-avatar">🔮</div>
+                    <h3>Sage Phoenix</h3>
+                    <p class="elder-specialty">Divination, Tarot & Astral Travel</p>
+                    <p>A master of the divinatory arts, Sage Phoenix teaches the mysteries of the Tarot, pendulum work, and astral projection techniques.</p>
+                </div>
+                <div class="card elder-card">
+                    <div class="elder-avatar">🌙</div>
+                    <h3>High Priest Erik</h3>
+                    <p class="elder-specialty">Founder & Coven Leader</p>
+                    <p>As the founder of Magickal Mortalz, High Priest Erik brings together gay Wiccans from across South Florida to celebrate the Craft.</p>
+                </div>
+            </div>
+            
+            <h2 class="section-title">📅 Weekly Schedule</h2>
+            <div class="schedule-grid">
+                <div class="schedule-item">
+                    <div class="schedule-day">Monday</div>
+                    <div class="schedule-event">🧘 Meditation Circle</div>
+                    <div class="schedule-time">7:00 PM EST</div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-day">Wednesday</div>
+                    <div class="schedule-event">🎴 Tarot Study Group</div>
+                    <div class="schedule-time">7:00 PM EST</div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-day">Friday</div>
+                    <div class="schedule-event">💎 Crystal Workshop</div>
+                    <div class="schedule-time">7:00 PM EST</div>
+                </div>
+                <div class="schedule-item full-moon">
+                    <div class="schedule-day">Full Moon</div>
+                    <div class="schedule-event">🌕 Esbat Ritual</div>
+                    <div class="schedule-time">9:00 PM EST</div>
+                </div>
+            </div>
+            
+            <!-- 🌐 CONNECT WITH US - SOCIAL LINKS -->
+            <h2 class="section-title">🌐 Connect With Us</h2>
+            <div class="social-links-container">
+                <!-- Websites -->
+                <div class="social-category">
+                    <h3>🏠 Our Websites</h3>
+                    <div class="social-grid">
+                        <a href="https://script.google.com/macros/s/AKfycby6LypzIbDHW3U2yhzimenelAqExEAXyqPRVKQvaLEYqGPwV-TJCbQmnFTMBKkLgD9w/exec" target="_blank" class="social-card website">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span class="social-name">Member Portal</span>
+                            <span class="social-desc">Your magickal dashboard</span>
+                        </a>
+                        <a href="https://magickal-mortalz-hnh8x4e.gamma.site/" target="_blank" class="social-card website">
+                            <i class="fa-solid fa-globe"></i>
+                            <span class="social-name">Public Website</span>
+                            <span class="social-desc">Learn about our coven</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Social Media -->
+                <div class="social-category">
+                    <h3>📱 Social Media</h3>
+                    <div class="social-grid">
+                        <a href="https://www.facebook.com/MagickalMortalzCoven" target="_blank" class="social-card facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                            <span class="social-name">Facebook Page</span>
+                            <span class="social-desc">@MagickalMortalzCoven</span>
+                        </a>
+                        <a href="https://www.facebook.com/groups/magickalmortalzcoven/" target="_blank" class="social-card facebook">
+                            <i class="fa-solid fa-users"></i>
+                            <span class="social-name">Facebook Group</span>
+                            <span class="social-desc">Join our community</span>
+                        </a>
+                        <a href="https://www.instagram.com/the_magickal_mortalz/" target="_blank" class="social-card instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                            <span class="social-name">Instagram</span>
+                            <span class="social-desc">@THE_MAGICKAL_MORTALZ</span>
+                        </a>
+                        <a href="https://www.instagram.com/the_magickal_mortalz_store" target="_blank" class="social-card instagram-store">
+                            <i class="fa-solid fa-shop"></i>
+                            <span class="social-name">Magickal Shop</span>
+                            <span class="social-desc">@the_magickal_mortalz_store</span>
+                        </a>
+                        <a href="https://discord.com/login" target="_blank" class="social-card discord">
+                            <i class="fa-brands fa-discord"></i>
+                            <span class="social-name">Discord</span>
+                            <span class="social-desc">@The_Magickal_Mortalz</span>
+                        </a>
+                        <a href="https://www.pinterest.com/magickalmortalz/" target="_blank" class="social-card pinterest">
+                            <i class="fa-brands fa-pinterest-p"></i>
+                            <span class="social-name">Pinterest</span>
+                            <span class="social-desc">@magickalmortalz</span>
+                        </a>
+                        <a href="https://www.twitter.com/MagickalMortalz" target="_blank" class="social-card twitter">
+                            <i class="fa-brands fa-x-twitter"></i>
+                            <span class="social-name">Twitter / X</span>
+                            <span class="social-desc">@MagickalMortalz</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="social-category contact-info">
+                    <h3>📬 Contact Us</h3>
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <i class="fa-solid fa-envelope"></i>
+                            <span>magickalmortalz@magickalmortalcoven.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>South Florida 🌴</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- 👤 PROFILE SECTION -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <section id="profile" class="section">
+            <div class="profile-header">
+                <div class="avatar-large" id="profile-avatar">🧙‍♂️</div>
+                <div class="profile-info">
+                    <h2 id="profile-craft-name">Craft Name</h2>
+                    <p class="profile-degree" id="profile-degree">Neophyte</p>
+                    <p class="profile-joined">Member since: <span id="profile-join-date">Loading...</span></p>
+                </div>
+                <button class="btn-secondary" onclick="openEditProfileModal()">
+                    <i class="fa-solid fa-edit"></i> Edit Profile
+                </button>
+            </div>
+            
+            <div class="grid-container">
+                <div class="card">
+                    <h3>📧 Contact Information</h3>
+                    <div class="profile-field">
+                        <label>Email</label>
+                        <span id="profile-email">Loading...</span>
+                    </div>
+                    <div class="profile-field">
+                        <label>Real Name (Private)</label>
+                        <span id="profile-real-name">Hidden</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>📝 About Me</h3>
+                    <p id="profile-bio" class="bio-text">No bio yet...</p>
+                </div>
+                
+                <div class="card">
+                    <h3>📈 Your Journey Stats</h3>
+                    <div class="journey-stats">
+                        <div class="journey-stat">
+                            <span class="journey-value" id="journey-modules">0</span>
+                            <span class="journey-label">Modules Completed</span>
+                        </div>
+                        <div class="journey-stat">
+                            <span class="journey-value" id="journey-sabbats">0</span>
+                            <span class="journey-label">Sabbats Attended</span>
+                        </div>
+                        <div class="journey-stat">
+                            <span class="journey-value" id="journey-entries">0</span>
+                            <span class="journey-label">Grimoire Entries</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <!-- 🪟 MODALS -->
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    
+    <!-- Year Detail Modal -->
+    <div id="modal-year" class="modal-overlay">
+        <div class="modal-content modal-large">
+            <button class="close-modal" onclick="closeModal('modal-year')">✕</button>
+            <div id="year-modal-content">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- New Grimoire Entry Modal -->
+    <div id="modal-new-entry" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal-new-entry')">✕</button>
+            <h2>📜 New Grimoire Entry</h2>
+            <form id="new-entry-form" onsubmit="submitNewEntry(event)">
+                <div class="form-group">
+                    <label for="entry-title">Title *</label>
+                    <input type="text" id="entry-title" required placeholder="Full Moon Protection Spell">
+                </div>
+                <div class="form-group">
+                    <label for="entry-category">Category *</label>
+                    <select id="entry-category" required>
+                        <!-- Populated by JavaScript -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="entry-content">Content *</label>
+                    <textarea id="entry-content" rows="8" required placeholder="Write your spell, ritual, or notes here..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="entry-tags">Tags (comma separated)</label>
+                    <input type="text" id="entry-tags" placeholder="protection, moon, banishing">
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="entry-private" checked>
+                    <label for="entry-private">Keep Private</label>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('modal-new-entry')">Cancel</button>
+                    <button type="submit" class="btn-primary">
+                        <i class="fa-solid fa-save"></i> Save Entry
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- View Grimoire Entry Modal -->
+    <div id="modal-view-entry" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal-view-entry')">✕</button>
+            <div id="view-entry-content">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Record Attendance Modal -->
+    <div id="modal-record-attendance" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal-record-attendance')">✕</button>
+            <h2>📅 Record Attendance</h2>
+            <form id="attendance-form" onsubmit="submitAttendance(event)">
+                <div class="form-group">
+                    <label for="att-type">Event Type *</label>
+                    <select id="att-type" required>
+                        <option value="Sabbat">Sabbat</option>
+                        <option value="Esbat">Esbat</option>
+                        <option value="Class">Class/Workshop</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="att-name">Event Name *</label>
+                    <input type="text" id="att-name" required placeholder="Samhain 2024">
+                </div>
+                <div class="form-group">
+                    <label for="att-date">Event Date *</label>
+                    <input type="date" id="att-date" required>
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="att-attended" checked>
+                    <label for="att-attended">I attended this event</label>
+                </div>
+                <div class="form-group">
+                    <label for="att-notes">Notes</label>
+                    <textarea id="att-notes" rows="3" placeholder="What did you experience?"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('modal-record-attendance')">Cancel</button>
+                    <button type="submit" class="btn-primary">
+                        <i class="fa-solid fa-check"></i> Record
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Ritual Modal -->
+    <div id="modal-ritual" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal-ritual')">✕</button>
+            <div id="ritual-modal-content">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Edit Profile Modal -->
+    <div id="modal-edit-profile" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal-edit-profile')">✕</button>
+            <h2>✏️ Edit Profile</h2>
+            <form id="edit-profile-form" onsubmit="submitProfileEdit(event)">
+                <div class="form-group">
+                    <label for="edit-craft-name">Craft Name *</label>
+                    <input type="text" id="edit-craft-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-avatar">Avatar Emoji</label>
+                    <input type="text" id="edit-avatar" maxlength="4" placeholder="🧙‍♂️">
+                </div>
+                <div class="form-group">
+                    <label for="edit-bio">Bio</label>
+                    <textarea id="edit-bio" rows="4" placeholder="Tell us about your magickal journey..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('modal-edit-profile')">Cancel</button>
+                    <button type="submit" class="btn-primary">
+                        <i class="fa-solid fa-save"></i> Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- 📜 JAVASCRIPT INCLUDE -->
+    <?!= include('js'); ?>
+    
+</body>
+</html>
