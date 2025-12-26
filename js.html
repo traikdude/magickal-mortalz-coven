@@ -3,11 +3,11 @@
    🌙✨ MAGICKAL MORTALZ COVEN - CLIENT-SIDE JAVASCRIPT ✨🌙
    ═══════════════════════════════════════════════════════════════════════════════
    📅 2025
-   🎨 Joyful UI Protocol Compliant
+   🎨 Mystical UI Architecture
    ═══════════════════════════════════════════════════════════════════════════════ */
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 🗃️ GLOBAL STATE
+// 🗃️ GLOBAL STATE & MYSTICAL CONSTANTS
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const APP_STATE = {
@@ -19,227 +19,84 @@ const APP_STATE = {
     upcomingSabbats: [],
     curriculum: null,
     grimoireCategories: [],
-    isLoading: false
+    isLoading: false,
+    moonPhase: '🌕' // Default
 };
 
-// 📜 Ritual Data (Coven Shared Knowledge)
-const RITUALS = {
-    circle: {
-        title: 'Casting & Closing the Circle ⭕',
-        content: `
-            <h3>Casting the Sacred Circle</h3>
-            <p><strong>Step 1:</strong> Cleanse the space with salt and water, walking widdershins (counterclockwise) to banish negative energies.</p>
-            <p><strong>Step 2:</strong> Walk the circle deosil (clockwise) 3 times with your athame or wand raised.</p>
-            <p><strong>Step 3:</strong> Visualize blue-white light flowing from your tool, creating a sphere of protection.</p>
-            <br>
-            <h4>🔮 Incantation:</h4>
-            <blockquote>
-                <em>"I cast this circle as a shield of protection,<br>
-                A boundary between the world of men<br>
-                And the realms of the Mighty Ones.<br>
-                A meeting place of love and joy and truth.<br>
-                I summon the guardians of the watchtowers<br>
-                To witness these rites and guard this circle."</em>
-            </blockquote>
-            <br>
-            <h3>Closing the Circle</h3>
-            <p>Walk widdershins (counterclockwise) 3 times, drawing the energy back into your athame.</p>
-            <blockquote>
-                <em>"The circle is open, but unbroken.<br>
-                Merry meet, merry part, and merry meet again."</em>
-            </blockquote>
-        `
-    },
-    air: {
-        title: 'Element of Air 🌬️',
-        content: `
-            <h3>Invoking the Element of Air</h3>
-            <p><strong>Direction:</strong> East</p>
-            <p><strong>Archangel:</strong> Raphael</p>
-            <p><strong>Elemental King:</strong> Paralda (or Eurius)</p>
-            <p><strong>Elemental Beings:</strong> Sylphs</p>
-            <p><strong>Colors:</strong> Yellow, White, Pale Blue</p>
-            <p><strong>Tools:</strong> Wand, Incense, Feather</p>
-            <br>
-            <h4>🔮 Invocation:</h4>
-            <blockquote>
-                <em>"Hail to the Guardians of the Watchtowers of the East!<br>
-                Powers of Air, Intellect, and Inspiration!<br>
-                I call upon you, Mighty Raphael,<br>
-                And King Paralda of the Sylphs!<br>
-                Bring clarity of mind and swift communication,<br>
-                Witness this rite and guard this sacred space!"</em>
-            </blockquote>
-            <br>
-            <h4>✨ Correspondences:</h4>
-            <ul>
-                <li>Season: Spring</li>
-                <li>Time: Dawn</li>
-                <li>Sabbat: Ostara</li>
-                <li>Qualities: Thought, Communication, Travel, New Beginnings</li>
-            </ul>
-        `
-    },
-    fire: {
-        title: 'Element of Fire 🔥',
-        content: `
-            <h3>Invoking the Element of Fire</h3>
-            <p><strong>Direction:</strong> South</p>
-            <p><strong>Archangel:</strong> Michael</p>
-            <p><strong>Elemental King:</strong> Djin</p>
-            <p><strong>Elemental Beings:</strong> Salamanders</p>
-            <p><strong>Colors:</strong> Red, Orange, Gold</p>
-            <p><strong>Tools:</strong> Athame, Candle, Sword</p>
-            <br>
-            <h4>🔮 Invocation:</h4>
-            <blockquote>
-                <em>"Hail to the Guardians of the Watchtowers of the South!<br>
-                Powers of Fire, Passion, and Transformation!<br>
-                I call upon you, Mighty Michael,<br>
-                And King Djin of the Salamanders!<br>
-                Bring courage, strength, and creative force,<br>
-                Witness this rite and guard this sacred space!"</em>
-            </blockquote>
-            <br>
-            <h4>✨ Correspondences:</h4>
-            <ul>
-                <li>Season: Summer</li>
-                <li>Time: Noon</li>
-                <li>Sabbat: Litha</li>
-                <li>Qualities: Will, Courage, Passion, Transformation</li>
-            </ul>
-        `
-    },
-    water: {
-        title: 'Element of Water 💧',
-        content: `
-            <h3>Invoking the Element of Water</h3>
-            <p><strong>Direction:</strong> West</p>
-            <p><strong>Archangel:</strong> Gabriel</p>
-            <p><strong>Elemental King:</strong> Nixsa (or Niksa)</p>
-            <p><strong>Elemental Beings:</strong> Undines</p>
-            <p><strong>Colors:</strong> Blue, Sea Green, Silver</p>
-            <p><strong>Tools:</strong> Chalice, Cauldron, Bowl of Water</p>
-            <br>
-            <h4>🔮 Invocation:</h4>
-            <blockquote>
-                <em>"Hail to the Guardians of the Watchtowers of the West!<br>
-                Powers of Water, Emotion, and Intuition!<br>
-                I call upon you, Mighty Gabriel,<br>
-                And King Nixsa of the Undines!<br>
-                Bring healing, love, and psychic vision,<br>
-                Witness this rite and guard this sacred space!"</em>
-            </blockquote>
-            <br>
-            <h4>✨ Correspondences:</h4>
-            <ul>
-                <li>Season: Autumn</li>
-                <li>Time: Dusk</li>
-                <li>Sabbat: Mabon</li>
-                <li>Qualities: Emotion, Intuition, Dreams, Healing</li>
-            </ul>
-        `
-    },
-    earth: {
-        title: 'Element of Earth 🌿',
-        content: `
-            <h3>Invoking the Element of Earth</h3>
-            <p><strong>Direction:</strong> North</p>
-            <p><strong>Archangel:</strong> Uriel</p>
-            <p><strong>Elemental King:</strong> Ghob (or the Great Stag)</p>
-            <p><strong>Elemental Beings:</strong> Gnomes</p>
-            <p><strong>Colors:</strong> Green, Brown, Black</p>
-            <p><strong>Tools:</strong> Pentacle, Salt, Stones</p>
-            <br>
-            <h4>🔮 Invocation:</h4>
-            <blockquote>
-                <em>"Hail to the Guardians of the Watchtowers of the North!<br>
-                Powers of Earth, Stability, and Abundance!<br>
-                I call upon you, Mighty Uriel,<br>
-                And the Great Stag, King of the Gnomes!<br>
-                Bring grounding, prosperity, and physical strength,<br>
-                Witness this rite and guard this sacred space!"</em>
-            </blockquote>
-            <br>
-            <h4>✨ Correspondences:</h4>
-            <ul>
-                <li>Season: Winter</li>
-                <li>Time: Midnight</li>
-                <li>Sabbat: Yule</li>
-                <li>Qualities: Stability, Prosperity, Physical Body, Grounding</li>
-            </ul>
-        `
-    },
-    mundane: {
-        title: 'Returning to Mundane 🏙️',
-        content: `
-            <h3>Grounding & Releasing</h3>
-            <p><strong>Purpose:</strong> To safely return from magical consciousness to everyday awareness, releasing excess energy and thanking the forces invoked.</p>
-            <br>
-            <h4>📋 Steps:</h4>
-            <ol>
-                <li><strong>Thank the Quarters:</strong> Release the quarters in reverse order (North, West, South, East)</li>
-                <li><strong>Ground Excess Energy:</strong> Touch your palms to the floor</li>
-                <li><strong>Visualize:</strong> See excess energy flowing into the Earth</li>
-                <li><strong>Eat & Drink:</strong> Have cakes and ale to ground yourself</li>
-            </ol>
-            <br>
-            <h4>🔮 Grounding Visualization:</h4>
-            <blockquote>
-                <em>"I release this energy into the Earth,<br>
-                Where it will harm none and help all.<br>
-                I am grounded, centered, and present.<br>
-                I return to the world between the worlds,<br>
-                Carrying the blessings of this rite."</em>
-            </blockquote>
-            <br>
-            <h4>🍞 Cakes & Ale Blessing:</h4>
-            <blockquote>
-                <em>"May you never hunger." (offer cake)<br>
-                "May you never thirst." (offer drink)<br>
-                "Blessed Be."</em>
-            </blockquote>
-        `
+// 🌑 Moon Phase Calculation
+function getMoonPhase() {
+    const d = new Date();
+    let year = d.getFullYear();
+    let month = d.getMonth() + 1;
+    let day = d.getDate();
+
+    if (month < 3) {
+        year--;
+        month += 12;
     }
-};
+
+    ++month;
+    let c = 365.25 * year;
+    let e = 30.6 * month;
+    let jd = c + e + day - 694039.09; // jd is total days elapsed
+    jd /= 29.5305882; // divide by the moon cycle
+    let b = parseInt(jd); // int(jd) -> b, take integer part of jd
+    jd -= b; // subtract integer part to leave fractional part of original jd
+    b = Math.round(jd * 8); // scale fraction from 0-8 and round
+
+    if (b >= 8) b = 0; // 0 and 8 are the same so turn 8 into 0
+
+    const phases = {
+        0: '🌑 New Moon',
+        1: '🌒 Waxing Crescent',
+        2: '🌓 First Quarter',
+        3: '🌔 Waxing Gibbous',
+        4: '🌕 Full Moon',
+        5: '🌖 Waning Gibbous',
+        6: '🌗 Last Quarter',
+        7: '🌘 Waning Crescent'
+    };
+    
+    return phases[b];
+}
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🚀 INITIALIZATION
 // ═══════════════════════════════════════════════════════════════════════════════
 
-/**
- * 🌙 Initialize the application on page load
- */
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🌙 Magickal Mortalz Coven App initializing...');
+    
+    // 🔮 Initialize Mystical Elements
+    initMoonPhase();
+    initCursorEffects();
     
     // 🔍 Check for existing member or create demo
     initializeApp();
 });
 
-/**
- * 🏁 Main initialization function
- */
-function initializeApp() {
-    // For demo purposes, we'll use a test member ID
-    // In production, this would come from authentication
-    const demoMemberId = localStorage.getItem('covenMemberId');
+function initMoonPhase() {
+    const phase = getMoonPhase();
+    APP_STATE.moonPhase = phase;
+    console.log('Current Moon Phase:', phase);
     
+    // Update UI if element exists
+    const moonDisplay = document.getElementById('moon-phase-display');
+    if (moonDisplay) moonDisplay.textContent = phase;
+}
+
+function initializeApp() {
+    const demoMemberId = localStorage.getItem('covenMemberId');
     if (demoMemberId) {
         APP_STATE.currentMemberId = demoMemberId;
         loadDashboardData(demoMemberId);
     } else {
-        // Create a demo member for first-time users
         createDemoMember();
     }
 }
 
-/**
- * 🆕 Create a demo member for testing
- */
 function createDemoMember() {
     showLoading(true);
-    
     const memberData = {
         email: 'demo@magickalmortalz.com',
         craftName: 'Moonchild',
@@ -248,55 +105,29 @@ function createDemoMember() {
     };
     
     google.script.run
-        .withSuccessHandler(function(result) {
-            console.log('📥 createMember result:', result);
-            
-            // 🛡️ Null safety check
-            if (!result) {
-                console.error('❌ createMember returned null');
-                showToast('error', 'Server returned empty response. Please refresh.');
-                showLoading(false);
-                return;
-            }
-            
-            if (result.success) {
+        .withSuccessHandler(result => {
+            if (result && result.success) {
                 APP_STATE.currentMemberId = result.memberId;
                 localStorage.setItem('covenMemberId', result.memberId);
-                showToast('success', result.message);
+                showToast('success', '✨ Blessed Be! Welcome to the Coven.');
                 loadDashboardData(result.memberId);
             } else {
-                showToast('error', result.error || 'Failed to create member');
+                showToast('error', 'Failed to summon member data.');
                 showLoading(false);
             }
         })
-        .withFailureHandler(function(error) {
-            console.error('Error creating member:', error);
-            showToast('error', 'Connection error. Please refresh.');
+        .withFailureHandler(error => {
+            showToast('error', 'Connection severed by spirits.');
             showLoading(false);
         })
         .createMember(memberData);
 }
 
-/**
- * 📊 Load all dashboard data for a member
- */
 function loadDashboardData(memberId) {
     showLoading(true);
-    
     google.script.run
-        .withSuccessHandler(function(data) {
-            console.log('📥 getDashboardData result:', data);
-            
-            // 🛡️ Null safety check
-            if (!data) {
-                console.error('❌ getDashboardData returned null');
-                showToast('error', 'Server returned empty data. Please refresh.');
-                showLoading(false);
-                return;
-            }
-            
-            if (data.success) {
-                // 💾 Store data in state
+        .withSuccessHandler(data => {
+            if (data && data.success) {
                 APP_STATE.member = data.member;
                 APP_STATE.progress = data.progress;
                 APP_STATE.attendance = data.attendance;
@@ -305,18 +136,15 @@ function loadDashboardData(memberId) {
                 APP_STATE.curriculum = data.curriculum;
                 APP_STATE.grimoireCategories = data.grimoireCategories;
                 
-                // 🎨 Update all UI components
                 updateAllUI();
-                
-                console.log('✅ Dashboard data loaded successfully');
+                showToast('success', '✨ Magick successfully invoked.');
             } else {
-                showToast('error', data.error || 'Failed to load data');
+                showToast('error', 'Failed to read the stars.');
             }
             showLoading(false);
         })
-        .withFailureHandler(function(error) {
-            console.error('Error loading dashboard:', error);
-            showToast('error', 'Failed to connect to server');
+        .withFailureHandler(error => {
+            showToast('error', 'The spirits are silent.');
             showLoading(false);
         })
         .getDashboardData(memberId);
@@ -326,115 +154,55 @@ function loadDashboardData(memberId) {
 // 🎨 UI UPDATE FUNCTIONS
 // ═══════════════════════════════════════════════════════════════════════════════
 
-/**
- * 🔄 Update all UI components with current state
- */
 function updateAllUI() {
-    try {
-        updateUserMini();
-    } catch (e) {
-        console.error('❌ Error updating user mini:', e);
-    }
-    
-    try {
-        updateDashboardStats();
-    } catch (e) {
-        console.error('❌ Error updating dashboard stats:', e);
-    }
-    
-    try {
-        updateUpcomingSabbats();
-    } catch (e) {
-        console.error('❌ Error updating sabbats:', e);
-    }
-    
-    try {
-        updateCurriculumProgress();
-    } catch (e) {
-        console.error('❌ Error updating curriculum:', e);
-    }
-    
-    try {
-        updateAttendanceSection();
-    } catch (e) {
-        console.error('❌ Error updating attendance:', e);
-    }
-    
-    try {
-        updateGrimoireSection();
-    } catch (e) {
-        console.error('❌ Error updating grimoire:', e);
-    }
-    
-    try {
-        updateProfileSection();
-    } catch (e) {
-        console.error('❌ Error updating profile:', e);
-    }
+    updateUserMini();
+    updateDashboardStats();
+    updateUpcomingSabbats();
+    updateCurriculumProgress();
+    updateAttendanceSection();
+    updateGrimoireSection();
+    updateProfileSection();
 }
 
-/**
- * 👤 Update user mini profile in sidebar
- */
 function updateUserMini() {
     const member = APP_STATE.member;
     if (!member) return;
     
-    const userAvatar = document.getElementById('user-avatar');
-    const userCraftName = document.getElementById('user-craft-name');
-    const userDegree = document.getElementById('user-degree');
-    
-    if (userAvatar) userAvatar.textContent = member.Avatar || '🧙‍♂️';
-    if (userCraftName) userCraftName.textContent = member.CraftName || 'Witch';
-    if (userDegree) userDegree.textContent = member.CurrentDegree || 'Neophyte';
+    document.getElementById('user-avatar').textContent = member.Avatar || '🧙‍♂️';
+    document.getElementById('user-craft-name').textContent = member.CraftName || 'Witch';
+    document.getElementById('user-degree').textContent = member.CurrentDegree || 'Neophyte';
 }
 
-/**
- * 📊 Update dashboard statistics
- */
 function updateDashboardStats() {
-    const progress = APP_STATE.progress;
-    const attendance = APP_STATE.attendance;
-    const grimoire = APP_STATE.grimoire;
+    const { progress, attendance, grimoire, member } = APP_STATE;
     
-    // Progress percentage
-    if (progress && progress.stats) {
-        const statProgress = document.getElementById('stat-progress');
-        const dashProgressBar = document.getElementById('dashboard-progress-bar');
-        if (statProgress) statProgress.textContent = (progress.stats.percentComplete || 0) + '%';
-        if (dashProgressBar) dashProgressBar.style.width = (progress.stats.percentComplete || 0) + '%';
+    if (progress?.stats) {
+        document.getElementById('stat-progress').textContent = (progress.stats.percentComplete || 0) + '%';
+        const dashBar = document.getElementById('dashboard-progress-bar');
+        if (dashBar) dashBar.style.width = (progress.stats.percentComplete || 0) + '%';
     }
     
-    // Sabbats attended
-    if (attendance && attendance.stats) {
-        const statSabbats = document.getElementById('stat-sabbats');
-        const statEsbats = document.getElementById('stat-esbats');
-        if (statSabbats) statSabbats.textContent = (attendance.stats.sabbatsAttended || 0) + '/8';
-        if (statEsbats) statEsbats.textContent = attendance.stats.esbatsAttended || 0;
+    if (attendance?.stats) {
+        document.getElementById('stat-sabbats').textContent = (attendance.stats.sabbatsAttended || 0) + '/8';
+        document.getElementById('stat-esbats').textContent = attendance.stats.esbatsAttended || 0;
     }
     
-    // Grimoire entries
-    if (grimoire && grimoire.stats) {
-        const statGrimoire = document.getElementById('stat-grimoire');
-        if (statGrimoire) statGrimoire.textContent = grimoire.stats.totalEntries || 0;
+    if (grimoire?.stats) {
+        document.getElementById('stat-grimoire').textContent = grimoire.stats.totalEntries || 0;
     }
     
-    // Dashboard degree tag
-    if (APP_STATE.member) {
-        const degreeTag = document.getElementById('dashboard-degree-tag');
-        if (degreeTag) degreeTag.textContent = APP_STATE.member.CurrentDegree || 'Neophyte';
+    if (member) {
+        const tag = document.getElementById('dashboard-degree-tag');
+        if (tag) tag.textContent = member.CurrentDegree || 'Neophyte';
     }
 }
 
-/**
- * 🌙 Update upcoming sabbats display
- */
 function updateUpcomingSabbats() {
     const container = document.getElementById('upcoming-sabbats');
     const sabbats = APP_STATE.upcomingSabbats;
     
     if (!sabbats || sabbats.length === 0) {
-        container.innerHTML = '<p class="loading-placeholder">No upcoming sabbats found</p>';
+        container.innerHTML = '<p class="loading-placeholder">The Wheel is turning...</p>';
         return;
     }
     
@@ -443,695 +211,110 @@ function updateUpcomingSabbats() {
             <div class="upcoming-emoji">${sabbat.emoji}</div>
             <div class="upcoming-name">${sabbat.name}</div>
             <div class="upcoming-date">${sabbat.dateString}</div>
-            <div class="upcoming-days">${sabbat.daysUntil} days away</div>
+            <div class="upcoming-days">${sabbat.daysUntil} days</div>
         </div>
     `).join('');
 }
 
-/**
- * 📚 Update curriculum progress display
- */
 function updateCurriculumProgress() {
     const progress = APP_STATE.progress;
-    if (!progress || !progress.stats) return;
+    if (!progress?.stats) return;
     
-    // Overall progress
     const overallBar = document.getElementById('curriculum-overall-progress');
     const overallText = document.getElementById('curriculum-progress-text');
     if (overallBar) overallBar.style.width = (progress.stats.percentComplete || 0) + '%';
     if (overallText) overallText.textContent = (progress.stats.percentComplete || 0) + '%';
     
-    // Stats
-    const modulesCompleted = document.getElementById('modules-completed');
-    const modulesInProgress = document.getElementById('modules-in-progress');
-    const modulesRemaining = document.getElementById('modules-remaining');
+    document.getElementById('modules-completed').textContent = progress.stats.completed || 0;
+    document.getElementById('modules-in-progress').textContent = progress.stats.inProgress || 0;
+    document.getElementById('modules-remaining').textContent = progress.stats.notStarted || 0;
     
-    if (modulesCompleted) modulesCompleted.textContent = progress.stats.completed || 0;
-    if (modulesInProgress) modulesInProgress.textContent = progress.stats.inProgress || 0;
-    if (modulesRemaining) modulesRemaining.textContent = progress.stats.notStarted || 0;
-    
-    // Year progress bars
     const byYear = progress.byYear || {};
     [1, 2, 3, 4].forEach(year => {
         const yearData = byYear['year' + year] || [];
-        const completed = yearData.filter(m => m && m.Status === 'Completed').length;
-        const total = yearData.length || 8; // Default 8 modules per year
+        const completed = yearData.filter(m => m.Status === 'Completed').length;
+        const total = yearData.length || 8;
         const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
         
         const bar = document.getElementById('year' + year + '-progress');
-        if (bar) {
-            bar.style.width = percent + '%';
-        }
+        if (bar) bar.style.width = percent + '%';
     });
 }
 
-/**
- * 📅 Update attendance section
- */
 function updateAttendanceSection() {
     const attendance = APP_STATE.attendance;
     if (!attendance) return;
     
-    // Stats
     if (attendance.stats) {
-        const attSabbatCount = document.getElementById('att-sabbat-count');
-        const attEsbatCount = document.getElementById('att-esbat-count');
-        if (attSabbatCount) attSabbatCount.textContent = (attendance.stats.sabbatsAttended || 0) + '/8';
-        if (attEsbatCount) attEsbatCount.textContent = attendance.stats.esbatsAttended || 0;
+        document.getElementById('att-sabbat-count').textContent = (attendance.stats.sabbatsAttended || 0) + '/8';
+        document.getElementById('att-esbat-count').textContent = attendance.stats.esbatsAttended || 0;
     }
     
-    // Sabbat grid
     const sabbatGrid = document.getElementById('sabbat-grid');
-    const sabbats = attendance.sabbats || [];
     const records = attendance.records || [];
     
     if (sabbatGrid) {
-        sabbatGrid.innerHTML = sabbats.map(sabbat => {
+        sabbatGrid.innerHTML = (attendance.sabbats || []).map(sabbat => {
             const attended = records.some(r => 
-                r && r.EventName && sabbat && sabbat.name &&
+                r.EventName && sabbat.name &&
                 r.EventName.toLowerCase().includes(sabbat.name.toLowerCase()) && 
                 (r.Attended === true || r.Attended === 'TRUE')
             );
             
             return `
-                <div class="sabbat-item ${attended ? 'attended' : ''}" 
-                     onclick="quickRecordSabbat('${sabbat.name || ''}')">
-                    <div class="sabbat-emoji">${sabbat.emoji || '🌙'}</div>
-                    <div class="sabbat-name">${sabbat.name || ''}</div>
-                    <div class="sabbat-date">${sabbat.date || ''}</div>
-                    ${attended ? '<div class="status-badge present">✓</div>' : ''}
+                <div class="sabbat-item ${attended ? 'attended' : ''}" onclick="quickRecordSabbat('${sabbat.name}')">
+                    <div class="sabbat-emoji">${sabbat.emoji}</div>
+                    <div class="sabbat-name">${sabbat.name}</div>
+                    <div class="sabbat-date">${sabbat.date}</div>
+                    ${attended ? '<div class="status-badge present">✓ Present</div>' : ''}
                 </div>
             `;
         }).join('');
     }
     
-    // Attendance records table
     const tbody = document.getElementById('attendance-tbody');
     if (tbody) {
-        if (records.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No attendance records yet</td></tr>';
-        } else {
-            tbody.innerHTML = records.slice(0, 10).map(record => `
-                <tr>
-                    <td><strong>${record.EventName || 'Unknown'}</strong></td>
-                    <td>${record.EventType || '-'}</td>
-                    <td>${formatDisplayDate(record.EventDate)}</td>
-                    <td>
-                        <span class="status-badge ${record.Attended === true || record.Attended === 'TRUE' ? 'present' : 'absent'}">
-                            ${record.Attended === true || record.Attended === 'TRUE' ? '✓ Present' : '✗ Absent'}
-                        </span>
-                    </td>
-                    <td>${record.Notes || '-'}</td>
-                </tr>
-            `).join('');
-        }
+        tbody.innerHTML = records.length ? records.slice(0, 10).map(record => `
+            <tr>
+                <td><strong>${record.EventName}</strong></td>
+                <td>${record.EventType}</td>
+                <td>${formatDisplayDate(record.EventDate)}</td>
+                <td><span class="status-badge ${record.Attended === true || record.Attended === 'TRUE' ? 'present' : 'absent'}">
+                    ${record.Attended === true || record.Attended === 'TRUE' ? '✓ Present' : '✗ Absent'}
+                </span></td>
+                <td>${record.Notes || '-'}</td>
+            </tr>
+        `).join('') : '<tr><td colspan="5" style="text-align: center;">No records in the archives.</td></tr>';
     }
 }
 
-/**
- * 📜 Update grimoire section
- */
 function updateGrimoireSection() {
     const grimoire = APP_STATE.grimoire;
     if (!grimoire) return;
     
-    // Populate category filter
-    const categoryFilter = document.getElementById('grimoire-category-filter');
-    const entryCategory = document.getElementById('entry-category');
     const categories = grimoire.categories || [];
+    const options = categories.map(c => `<option value="${c.id}">${c.emoji} ${c.name}</option>`).join('');
     
-    const categoryOptions = categories.map(cat => 
-        `<option value="${cat.id}">${cat.emoji} ${cat.name}</option>`
-    ).join('');
+    const filter = document.getElementById('grimoire-category-filter');
+    const entryCat = document.getElementById('entry-category');
     
-    if (categoryFilter) {
-        categoryFilter.innerHTML = '<option value="all">All Categories</option>' + categoryOptions;
-    }
-    if (entryCategory) {
-        entryCategory.innerHTML = categoryOptions;
-    }
+    if (filter) filter.innerHTML = '<option value="all">🔮 All Knowledge</option>' + options;
+    if (entryCat) entryCat.innerHTML = options;
     
-    // Category stats
     const statsContainer = document.getElementById('grimoire-category-stats');
-    if (grimoire.stats && grimoire.stats.byCategory) {
+    if (grimoire.stats?.byCategory) {
         statsContainer.innerHTML = categories.map(cat => {
             const count = grimoire.stats.byCategory[cat.id] || 0;
-            if (count === 0) return '';
-            return `
-                <div class="category-badge">
-                    ${cat.emoji} ${cat.name}
-                    <span class="count">${count}</span>
-                </div>
-            `;
+            return count ? `<div class="tag">${cat.emoji} ${cat.name}: ${count}</div>` : '';
         }).join('');
     }
     
-    // Entries grid
     const entriesGrid = document.getElementById('grimoire-entries');
     const entries = grimoire.entries || [];
     
-    if (entries.length === 0) {
-        entriesGrid.innerHTML = `
-            <div class="loading-placeholder" style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
-                <p>📜 Your grimoire is empty</p>
-                <p style="font-size: 0.9rem; margin-top: 0.5rem;">Start adding spells, rituals, and notes!</p>
-            </div>
-        `;
-    } else {
-        entriesGrid.innerHTML = entries.map(entry => {
-            const category = categories.find(c => c.id === entry.Category) || { emoji: '📝' };
-            const tags = entry.Tags ? entry.Tags.split(',').map(t => t.trim()).filter(t => t) : [];
-            const content = entry.Content || ''; // 🛡️ Null safety
-            const title = entry.Title || 'Untitled'; // 🛡️ Null safety
-            
-            return `
-                <div class="grimoire-entry" onclick="viewGrimoireEntry('${entry.ID}')">
-                    <div class="entry-header">
-                        <span class="entry-emoji">${category.emoji}</span>
-                        <span class="entry-title">${title}</span>
-                    </div>
-                    <div class="entry-date">${formatDisplayDate(entry.CreatedDate)}</div>
-                    <div class="entry-preview">${content.substring(0, 150)}${content.length > 150 ? '...' : ''}</div>
-                    ${tags.length > 0 ? `
-                        <div class="entry-tags">
-                            ${tags.slice(0, 3).map(tag => `<span class="entry-tag">${tag}</span>`).join('')}
-                        </div>
-                    ` : ''}
-                </div>
-            `;
-        }).join('');
-    }
-}
-
-/**
- * 👤 Update profile section
- */
-function updateProfileSection() {
-    const member = APP_STATE.member;
-    const progress = APP_STATE.progress;
-    const attendance = APP_STATE.attendance;
-    const grimoire = APP_STATE.grimoire;
-    
-    if (!member) return;
-    
-    // 🛡️ Safe element updates with null checks
-    const profileAvatar = document.getElementById('profile-avatar');
-    const profileCraftName = document.getElementById('profile-craft-name');
-    const profileDegree = document.getElementById('profile-degree');
-    const profileJoinDate = document.getElementById('profile-join-date');
-    const profileEmail = document.getElementById('profile-email');
-    const profileRealName = document.getElementById('profile-real-name');
-    const profileBio = document.getElementById('profile-bio');
-    
-    if (profileAvatar) profileAvatar.textContent = member.Avatar || '🧙‍♂️';
-    if (profileCraftName) profileCraftName.textContent = member.CraftName || 'Unnamed Witch';
-    if (profileDegree) profileDegree.textContent = member.CurrentDegree || 'Neophyte';
-    if (profileJoinDate) profileJoinDate.textContent = formatDisplayDate(member.JoinDate);
-    if (profileEmail) profileEmail.textContent = member.Email || 'Not set';
-    if (profileRealName) profileRealName.textContent = member.RealName || 'Hidden';
-    if (profileBio) profileBio.textContent = member.Bio || 'No bio yet...';
-    
-    // Journey stats
-    const journeyModules = document.getElementById('journey-modules');
-    const journeySabbats = document.getElementById('journey-sabbats');
-    const journeyEntries = document.getElementById('journey-entries');
-    
-    if (progress && progress.stats && journeyModules) {
-        journeyModules.textContent = progress.stats.completed || 0;
-    }
-    if (attendance && attendance.stats && journeySabbats) {
-        journeySabbats.textContent = attendance.stats.sabbatsAttended || 0;
-    }
-    if (grimoire && grimoire.stats && journeyEntries) {
-        journeyEntries.textContent = grimoire.stats.totalEntries || 0;
-    }
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// 🚦 NAVIGATION
-// ═══════════════════════════════════════════════════════════════════════════════
-
-/**
- * 📑 Show a specific section
- */
-function showSection(sectionId, clickedLink) {
-    // Hide all sections
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    
-    // Show target section
-    const targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        targetSection.classList.add('active');
-    }
-    
-    // Update sidebar active state
-    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-    if (clickedLink) {
-        clickedLink.classList.add('active');
-    }
-    
-    // Close mobile sidebar
-    document.getElementById('sidebar').classList.remove('open');
-    
-    // Scroll to top
-    document.getElementById('main-content').scrollTop = 0;
-}
-
-/**
- * 📱 Toggle mobile sidebar
- */
-function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('open');
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// 🪟 MODAL FUNCTIONS
-// ═══════════════════════════════════════════════════════════════════════════════
-
-/**
- * 📚 Open year detail modal
- */
-function openYearModal(year) {
-    const modal = document.getElementById('modal-year');
-    const content = document.getElementById('year-modal-content');
-    const progress = APP_STATE.progress;
-    const curriculum = APP_STATE.curriculum;
-    
-    if (!curriculum) {
-        showToast('error', 'Curriculum data not loaded');
-        return;
-    }
-    
-    const yearKey = 'year' + year;
-    const yearData = curriculum[yearKey];
-    const yearProgress = progress && progress.byYear ? progress.byYear[yearKey] : [];
-    
-    content.innerHTML = `
-        <h2>${yearData.emoji} Year ${year}: ${yearData.name}</h2>
-        <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
-        <h3>📚 Modules</h3>
-        <div class="module-list">
-            ${yearData.modules.map((module, index) => {
-                const moduleProgress = yearProgress.find(p => p.Module === module);
-                const status = moduleProgress ? moduleProgress.Status : 'Locked';
-                const statusClass = status === 'Completed' ? 'completed' : 
-                                   status === 'In Progress' ? 'in-progress' : 'not-started';
-                const statusIcon = status === 'Completed' ? '✅' : 
-                                  status === 'In Progress' ? '📖' : '🔒';
-                
-                return `
-                    <div class="module-item ${statusClass}">
-                        <span class="module-icon">${statusIcon}</span>
-                        <span class="module-name">${module}</span>
-                        <span class="module-status">${status}</span>
-                        ${moduleProgress && status !== 'Completed' ? `
-                            <button class="btn-small" onclick="updateModuleStatus('${moduleProgress.ID}', '${status === 'In Progress' ? 'Completed' : 'In Progress'}')">
-                                ${status === 'In Progress' ? 'Complete' : 'Start'}
-                            </button>
-                        ` : ''}
-                    </div>
-                `;
-            }).join('')}
-        </div>
-    `;
-    
-    // Add module list styles
-    const style = document.createElement('style');
-    style.textContent = `
-        .module-list { margin-top: 1rem; }
-        .module-item { 
-            display: flex; 
-            align-items: center; 
-            gap: 1rem; 
-            padding: 1rem; 
-            background: var(--bg-hover); 
-            border-radius: var(--radius-sm); 
-            margin-bottom: 0.5rem;
-        }
-        .module-item.completed { background: var(--success-light); }
-        .module-item.in-progress { background: var(--info-light); }
-        .module-icon { font-size: 1.25rem; }
-        .module-name { flex: 1; font-weight: 500; }
-        .module-status { font-size: 0.85rem; color: var(--text-light); }
-        .btn-small { 
-            padding: 6px 12px; 
-            font-size: 0.8rem; 
-            background: var(--gradient);
-            color: white;
-            border: none;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-        }
-    `;
-    content.appendChild(style);
-    
-    openModal('modal-year');
-}
-
-/**
- * 📜 Open new grimoire entry modal
- */
-function openNewEntryModal() {
-    document.getElementById('new-entry-form').reset();
-    openModal('modal-new-entry');
-}
-
-/**
- * 👁️ View a grimoire entry
- */
-function viewGrimoireEntry(entryId) {
-    const grimoire = APP_STATE.grimoire;
-    if (!grimoire || !grimoire.entries) return;
-    
-    const entry = grimoire.entries.find(e => e.ID === entryId);
-    if (!entry) {
-        showToast('error', 'Entry not found');
-        return;
-    }
-    
-    const category = (grimoire.categories || []).find(c => c.id === entry.Category) || { emoji: '📝', name: 'Note' };
-    const tags = entry.Tags ? entry.Tags.split(',').map(t => t.trim()).filter(t => t) : [];
-    
-    const content = document.getElementById('view-entry-content');
-    content.innerHTML = `
-        <h2>${category.emoji} ${entry.Title}</h2>
-        <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem;">
-            ${category.name} • Created ${formatDisplayDate(entry.CreatedDate)}
-        </p>
-        <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
-        <div style="white-space: pre-wrap; line-height: 1.7;">${entry.Content}</div>
-        ${tags.length > 0 ? `
-            <div style="margin-top: 1.5rem;">
-                <strong>Tags:</strong> ${tags.map(t => `<span class="tag" style="margin-left: 0.5rem;">${t}</span>`).join('')}
-            </div>
-        ` : ''}
-        <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
-            <button class="btn-danger" onclick="deleteEntry('${entry.ID}')">
-                <i class="fa-solid fa-trash"></i> Delete
-            </button>
-        </div>
-    `;
-    
-    openModal('modal-view-entry');
-}
-
-/**
- * 📅 Open record attendance modal
- */
-function openRecordAttendanceModal() {
-    document.getElementById('attendance-form').reset();
-    document.getElementById('att-date').valueAsDate = new Date();
-    openModal('modal-record-attendance');
-}
-
-/**
- * ⚡ Quick record sabbat attendance
- */
-function quickRecordSabbat(sabbatName) {
-    const year = new Date().getFullYear();
-    document.getElementById('att-type').value = 'Sabbat';
-    document.getElementById('att-name').value = sabbatName + ' ' + year;
-    document.getElementById('att-date').valueAsDate = new Date();
-    openModal('modal-record-attendance');
-}
-
-/**
- * 🔮 Open ritual modal
- */
-function openRitualModal(ritualKey) {
-    const ritual = RITUALS[ritualKey];
-    if (!ritual) return;
-    
-    const content = document.getElementById('ritual-modal-content');
-    content.innerHTML = `
-        <h2 style="color: var(--primary);">${ritual.title}</h2>
-        <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
-        ${ritual.content}
-    `;
-    
-    // Style blockquotes
-    content.querySelectorAll('blockquote').forEach(bq => {
-        bq.style.cssText = 'background: var(--bg-hover); padding: 1rem 1.5rem; border-left: 4px solid var(--primary); margin: 1rem 0; border-radius: var(--radius-sm);';
-    });
-    
-    openModal('modal-ritual');
-}
-
-/**
- * ✏️ Open edit profile modal
- */
-function openEditProfileModal() {
-    const member = APP_STATE.member;
-    if (!member) return;
-    
-    document.getElementById('edit-craft-name').value = member.CraftName || '';
-    document.getElementById('edit-avatar').value = member.Avatar || '🧙‍♂️';
-    document.getElementById('edit-bio').value = member.Bio || '';
-    
-    openModal('modal-edit-profile');
-}
-
-/**
- * 🪟 Generic open modal
- */
-function openModal(modalId) {
-    document.getElementById(modalId).classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-
-/**
- * ❌ Close modal
- */
-function closeModal(modalId) {
-    document.getElementById(modalId).classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-// Close modal on overlay click
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('modal-overlay')) {
-        e.target.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-});
-
-// Close modal on ESC key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        document.querySelectorAll('.modal-overlay.active').forEach(modal => {
-            modal.classList.remove('active');
-        });
-        document.body.style.overflow = '';
-    }
-});
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// 📝 FORM SUBMISSIONS
-// ═══════════════════════════════════════════════════════════════════════════════
-
-/**
- * 📜 Submit new grimoire entry
- */
-function submitNewEntry(event) {
-    event.preventDefault();
-    
-    const entryData = {
-        title: document.getElementById('entry-title').value,
-        category: document.getElementById('entry-category').value,
-        content: document.getElementById('entry-content').value,
-        tags: document.getElementById('entry-tags').value,
-        isPrivate: document.getElementById('entry-private').checked
-    };
-    
-    showLoading(true);
-    
-    google.script.run
-        .withSuccessHandler(function(result) {
-            if (result.success) {
-                showToast('success', result.message);
-                closeModal('modal-new-entry');
-                loadDashboardData(APP_STATE.currentMemberId);
-            } else {
-                showToast('error', result.error || 'Failed to save entry');
-                showLoading(false);
-            }
-        })
-        .withFailureHandler(function(error) {
-            console.error('Error saving entry:', error);
-            showToast('error', 'Connection error');
-            showLoading(false);
-        })
-        .createGrimoireEntry(APP_STATE.currentMemberId, entryData);
-}
-
-/**
- * 📅 Submit attendance record
- */
-function submitAttendance(event) {
-    event.preventDefault();
-    
-    const eventData = {
-        eventType: document.getElementById('att-type').value,
-        eventName: document.getElementById('att-name').value,
-        eventDate: document.getElementById('att-date').value,
-        attended: document.getElementById('att-attended').checked,
-        notes: document.getElementById('att-notes').value
-    };
-    
-    showLoading(true);
-    
-    google.script.run
-        .withSuccessHandler(function(result) {
-            if (result.success) {
-                showToast('success', result.message);
-                closeModal('modal-record-attendance');
-                loadDashboardData(APP_STATE.currentMemberId);
-            } else {
-                showToast('error', result.error || 'Failed to record attendance');
-                showLoading(false);
-            }
-        })
-        .withFailureHandler(function(error) {
-            console.error('Error recording attendance:', error);
-            showToast('error', 'Connection error');
-            showLoading(false);
-        })
-        .recordAttendance(APP_STATE.currentMemberId, eventData);
-}
-
-/**
- * 👤 Submit profile edit
- */
-function submitProfileEdit(event) {
-    event.preventDefault();
-    
-    const updates = {
-        CraftName: document.getElementById('edit-craft-name').value,
-        Avatar: document.getElementById('edit-avatar').value || '🧙‍♂️',
-        Bio: document.getElementById('edit-bio').value
-    };
-    
-    showLoading(true);
-    
-    google.script.run
-        .withSuccessHandler(function(result) {
-            if (result.success) {
-                showToast('success', result.message);
-                closeModal('modal-edit-profile');
-                loadDashboardData(APP_STATE.currentMemberId);
-            } else {
-                showToast('error', result.error || 'Failed to update profile');
-                showLoading(false);
-            }
-        })
-        .withFailureHandler(function(error) {
-            console.error('Error updating profile:', error);
-            showToast('error', 'Connection error');
-            showLoading(false);
-        })
-        .updateMember(APP_STATE.currentMemberId, updates);
-}
-
-/**
- * ✅ Update module status
- */
-function updateModuleStatus(progressId, newStatus) {
-    showLoading(true);
-    
-    google.script.run
-        .withSuccessHandler(function(result) {
-            if (result.success) {
-                showToast('success', result.message);
-                closeModal('modal-year');
-                loadDashboardData(APP_STATE.currentMemberId);
-            } else {
-                showToast('error', result.error || 'Failed to update module');
-                showLoading(false);
-            }
-        })
-        .withFailureHandler(function(error) {
-            console.error('Error updating module:', error);
-            showToast('error', 'Connection error');
-            showLoading(false);
-        })
-        .updateModuleStatus(progressId, newStatus);
-}
-
-/**
- * 🗑️ Delete grimoire entry
- */
-function deleteEntry(entryId) {
-    if (!confirm('Are you sure you want to delete this entry? This cannot be undone.')) {
-        return;
-    }
-    
-    showLoading(true);
-    
-    google.script.run
-        .withSuccessHandler(function(result) {
-            if (result.success) {
-                showToast('success', result.message);
-                closeModal('modal-view-entry');
-                loadDashboardData(APP_STATE.currentMemberId);
-            } else {
-                showToast('error', result.error || 'Failed to delete entry');
-                showLoading(false);
-            }
-        })
-        .withFailureHandler(function(error) {
-            console.error('Error deleting entry:', error);
-            showToast('error', 'Connection error');
-            showLoading(false);
-        })
-        .deleteGrimoireEntry(entryId);
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// 🔍 FILTERING & SEARCH
-// ═══════════════════════════════════════════════════════════════════════════════
-
-/**
- * 🔍 Filter grimoire entries by search
- */
-function filterGrimoireEntries() {
-    const searchTerm = document.getElementById('grimoire-search').value.toLowerCase();
-    const entries = document.querySelectorAll('.grimoire-entry');
-    
-    entries.forEach(entry => {
-        const title = entry.querySelector('.entry-title').textContent.toLowerCase();
-        const preview = entry.querySelector('.entry-preview').textContent.toLowerCase();
-        const matches = title.includes(searchTerm) || preview.includes(searchTerm);
-        entry.style.display = matches ? 'block' : 'none';
-    });
-}
-
-/**
- * 📂 Filter grimoire by category
- */
-function filterGrimoireByCategory() {
-    const category = document.getElementById('grimoire-category-filter').value;
-    
-    if (category === 'all') {
-        updateGrimoireSection();
-        return;
-    }
-    
-    // Filter entries
-    const grimoire = APP_STATE.grimoire;
-    if (!grimoire) return;
-    
-    const filtered = {
-        ...grimoire,
-        entries: grimoire.entries.filter(e => e.Category === category)
-    };
-    
-    // Temporarily update display
-    const entriesGrid = document.getElementById('grimoire-entries');
-    const categories = grimoire.categories || [];
-    
-    entriesGrid.innerHTML = filtered.entries.map(entry => {
+    entriesGrid.innerHTML = entries.length ? entries.map(entry => {
         const cat = categories.find(c => c.id === entry.Category) || { emoji: '📝' };
-        const tags = entry.Tags ? entry.Tags.split(',').map(t => t.trim()).filter(t => t) : [];
+        const tags = entry.Tags ? entry.Tags.split(',').filter(t => t) : [];
         
         return `
             <div class="grimoire-entry" onclick="viewGrimoireEntry('${entry.ID}')">
@@ -1140,85 +323,223 @@ function filterGrimoireByCategory() {
                     <span class="entry-title">${entry.Title}</span>
                 </div>
                 <div class="entry-date">${formatDisplayDate(entry.CreatedDate)}</div>
-                <div class="entry-preview">${entry.Content.substring(0, 150)}...</div>
-                ${tags.length > 0 ? `
-                    <div class="entry-tags">
-                        ${tags.slice(0, 3).map(tag => `<span class="entry-tag">${tag}</span>`).join('')}
-                    </div>
-                ` : ''}
+                <div class="entry-preview">${entry.Content.substring(0, 120)}...</div>
+                <div class="entry-tags">
+                    ${tags.slice(0, 3).map(t => `<span class="entry-tag">${t}</span>`).join('')}
+                </div>
             </div>
         `;
-    }).join('') || '<p class="loading-placeholder" style="grid-column: 1 / -1; text-align: center;">No entries in this category</p>';
+    }).join('') : '<p class="loading-placeholder">Your Book of Shadows is waiting for its first spell...</p>';
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// 🔧 UTILITY FUNCTIONS
-// ═══════════════════════════════════════════════════════════════════════════════
-
-/**
- * 🔄 Show/hide loading overlay
- */
-function showLoading(show) {
-    const overlay = document.getElementById('loading-overlay');
-    if (show) {
-        overlay.classList.add('active');
-    } else {
-        overlay.classList.remove('active');
-    }
-    APP_STATE.isLoading = show;
-}
-
-/**
- * 📅 Format date for display
- */
-function formatDisplayDate(dateString) {
-    if (!dateString) return 'N/A';
+function updateProfileSection() {
+    const member = APP_STATE.member;
+    if (!member) return;
     
-    try {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        });
-    } catch (e) {
-        return dateString;
+    document.getElementById('profile-avatar').textContent = member.Avatar || '🧙‍♂️';
+    document.getElementById('profile-craft-name').textContent = member.CraftName || 'Unnamed';
+    document.getElementById('profile-degree').textContent = member.CurrentDegree;
+    document.getElementById('profile-join-date').textContent = formatDisplayDate(member.JoinDate);
+    document.getElementById('profile-email').textContent = member.Email;
+    document.getElementById('profile-real-name').textContent = member.RealName || 'Hidden';
+    document.getElementById('profile-bio').textContent = member.Bio || 'No story written yet...';
+    
+    if (APP_STATE.progress?.stats) {
+        document.getElementById('journey-modules').textContent = APP_STATE.progress.stats.completed || 0;
+    }
+    if (APP_STATE.attendance?.stats) {
+        document.getElementById('journey-sabbats').textContent = APP_STATE.attendance.stats.sabbatsAttended || 0;
+    }
+    if (APP_STATE.grimoire?.stats) {
+        document.getElementById('journey-entries').textContent = APP_STATE.grimoire.stats.totalEntries || 0;
     }
 }
 
-/**
- * 🍞 Show toast notification
- */
-function showToast(type, message) {
-    const container = document.getElementById('toast-container');
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🪄 MYSTICAL INTERACTIONS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function initCursorEffects() {
+    document.addEventListener('mousemove', function(e) {
+        if (Math.random() < 0.1) { // Don't create too many particles
+            createStarParticle(e.clientX, e.clientY);
+        }
+    });
+}
+
+function createStarParticle(x, y) {
+    const star = document.createElement('div');
+    star.textContent = '✨';
+    star.style.position = 'fixed';
+    star.style.left = x + 'px';
+    star.style.top = y + 'px';
+    star.style.fontSize = Math.random() * 10 + 5 + 'px';
+    star.style.pointerEvents = 'none';
+    star.style.animation = 'stars-twinkle 1s ease-out forwards';
+    star.style.zIndex = '9999';
     
-    const icons = {
-        success: '✅',
-        error: '❌',
-        warning: '⚠️',
-        info: 'ℹ️'
+    document.body.appendChild(star);
+    
+    setTimeout(() => {
+        star.remove();
+    }, 1000);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🚦 NAVIGATION & MODALS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function showSection(sectionId, clickedLink) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(sectionId).classList.add('active');
+    
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    if (clickedLink) clickedLink.classList.add('active');
+    
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('main-content').scrollTop = 0;
+}
+
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+}
+
+function openModal(modalId) {
+    document.getElementById(modalId).classList.add('active');
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.remove('active');
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 📝 ACTIONS (CRUD)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function quickRecordSabbat(name) {
+    const year = new Date().getFullYear();
+    document.getElementById('att-type').value = 'Sabbat';
+    document.getElementById('att-name').value = `${name} ${year}`;
+    document.getElementById('att-date').valueAsDate = new Date();
+    openModal('modal-record-attendance');
+}
+
+function submitAttendance(event) {
+    event.preventDefault();
+    showLoading(true);
+    
+    const data = {
+        eventType: document.getElementById('att-type').value,
+        eventName: document.getElementById('att-name').value,
+        eventDate: document.getElementById('att-date').value,
+        attended: document.getElementById('att-attended').checked,
+        notes: document.getElementById('att-notes').value
     };
     
-    const toast = document.createElement('div');
-    toast.className = `toast ${type}`;
-    toast.innerHTML = `
-        <span class="toast-icon">${icons[type] || 'ℹ️'}</span>
-        <span class="toast-message">${message}</span>
-        <button class="toast-close" onclick="this.parentElement.remove()">✕</button>
+    google.script.run
+        .withSuccessHandler(res => {
+            if (res.success) {
+                showToast('success', 'Attendance Recorded. So Mote It Be!');
+                closeModal('modal-record-attendance');
+                loadDashboardData(APP_STATE.currentMemberId);
+            } else {
+                showToast('error', 'Failed to record.');
+            }
+            showLoading(false);
+        })
+        .recordAttendance(APP_STATE.currentMemberId, data);
+}
+
+function openNewEntryModal() {
+    document.getElementById('new-entry-form').reset();
+    openModal('modal-new-entry');
+}
+
+function submitNewEntry(event) {
+    event.preventDefault();
+    showLoading(true);
+    
+    const data = {
+        title: document.getElementById('entry-title').value,
+        category: document.getElementById('entry-category').value,
+        content: document.getElementById('entry-content').value,
+        tags: document.getElementById('entry-tags').value,
+        isPrivate: document.getElementById('entry-private').checked
+    };
+    
+    google.script.run
+        .withSuccessHandler(res => {
+            if (res.success) {
+                showToast('success', 'Entry inscribed in the Grimoire.');
+                closeModal('modal-new-entry');
+                loadDashboardData(APP_STATE.currentMemberId);
+            } else {
+                showToast('error', 'Failed to save entry.');
+            }
+            showLoading(false);
+        })
+        .createGrimoireEntry(APP_STATE.currentMemberId, data);
+}
+
+function viewGrimoireEntry(id) {
+    const entry = APP_STATE.grimoire.entries.find(e => e.ID === id);
+    if (!entry) return;
+    
+    const content = document.getElementById('view-entry-content');
+    content.innerHTML = `
+        <h2>${entry.Title}</h2>
+        <p class="entry-date">Inscribed: ${formatDisplayDate(entry.CreatedDate)}</p>
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 1rem 0;">
+        <div style="white-space: pre-wrap; line-height: 1.8;">${entry.Content}</div>
+        <div class="form-actions">
+            <button class="btn-secondary" style="border-color: var(--fire); color: var(--fire);" onclick="deleteEntry('${entry.ID}')">Burn Page</button>
+        </div>
     `;
+    openModal('modal-view-entry');
+}
+
+function deleteEntry(id) {
+    if (!confirm('Burn this page from your Grimoire? This cannot be undone.')) return;
     
-    container.appendChild(toast);
-    
-    // Auto-remove after 5 seconds
-    setTimeout(() => {
-        if (toast.parentElement) {
-            toast.style.animation = 'slideIn 0.3s ease reverse';
-            setTimeout(() => toast.remove(), 300);
-        }
-    }, 5000);
+    showLoading(true);
+    google.script.run
+        .withSuccessHandler(res => {
+            if (res.success) {
+                showToast('success', 'Page burned to ash.');
+                closeModal('modal-view-entry');
+                loadDashboardData(APP_STATE.currentMemberId);
+            } else {
+                showToast('error', 'The spell resists deletion.');
+            }
+            showLoading(false);
+        })
+        .deleteGrimoireEntry(id);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 🌙 END OF JAVASCRIPT
+// 🔧 UTILITIES
 // ═══════════════════════════════════════════════════════════════════════════════
+
+function showLoading(show) {
+    const overlay = document.getElementById('loading-overlay');
+    if (show) overlay.classList.add('active');
+    else overlay.classList.remove('active');
+}
+
+function showToast(type, msg) {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `<span>${type === 'success' ? '✨' : '🔮'}</span><span>${msg}</span>`;
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 4000);
+}
+
+function formatDisplayDate(str) {
+    if (!str) return '';
+    try {
+        return new Date(str).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    } catch { return str; }
+}
+
 </script>
