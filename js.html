@@ -3,7 +3,7 @@
    🌙✨ MAGICKAL MORTALZ COVEN - CLIENT-SIDE JAVASCRIPT ✨🌙
    ═══════════════════════════════════════════════════════════════════════════════
    📅 2025
-   🎨 Mystical UI Architecture
+   🎨 Mystical UI Architecture (Restored & Enhanced)
    ═══════════════════════════════════════════════════════════════════════════════ */
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -80,7 +80,6 @@ function initMoonPhase() {
     APP_STATE.moonPhase = phase;
     console.log('Current Moon Phase:', phase);
     
-    // Update UI if element exists
     const moonDisplay = document.getElementById('moon-phase-display');
     if (moonDisplay) moonDisplay.textContent = phase;
 }
@@ -225,10 +224,16 @@ function updateCurriculumProgress() {
     if (overallBar) overallBar.style.width = (progress.stats.percentComplete || 0) + '%';
     if (overallText) overallText.textContent = (progress.stats.percentComplete || 0) + '%';
     
-    document.getElementById('modules-completed').textContent = progress.stats.completed || 0;
-    document.getElementById('modules-in-progress').textContent = progress.stats.inProgress || 0;
-    document.getElementById('modules-remaining').textContent = progress.stats.notStarted || 0;
+    // Stats Counters
+    const modCompleted = document.getElementById('modules-completed');
+    const modInProgress = document.getElementById('modules-in-progress');
+    const modRemaining = document.getElementById('modules-remaining');
     
+    if (modCompleted) modCompleted.textContent = progress.stats.completed || 0;
+    if (modInProgress) modInProgress.textContent = progress.stats.inProgress || 0;
+    if (modRemaining) modRemaining.textContent = progress.stats.notStarted || 0;
+    
+    // Year Progress Bars
     const byYear = progress.byYear || {};
     [1, 2, 3, 4].forEach(year => {
         const yearData = byYear['year' + year] || [];
@@ -298,7 +303,7 @@ function updateGrimoireSection() {
     const filter = document.getElementById('grimoire-category-filter');
     const entryCat = document.getElementById('entry-category');
     
-    if (filter) filter.innerHTML = '<option value="all">🔮 All Knowledge</option>' + options;
+    if (filter) filter.innerHTML = '<option value="all">🔮 All Magic</option>' + options;
     if (entryCat) entryCat.innerHTML = options;
     
     const statsContainer = document.getElementById('grimoire-category-stats');
@@ -377,6 +382,7 @@ function createStarParticle(x, y) {
     star.style.pointerEvents = 'none';
     star.style.animation = 'stars-twinkle 1s ease-out forwards';
     star.style.zIndex = '9999';
+    star.style.color = '#FEF3C7'; // Light gold
     
     document.body.appendChild(star);
     
@@ -406,15 +412,78 @@ function toggleSidebar() {
 
 function openModal(modalId) {
     document.getElementById(modalId).classList.add('active');
+    document.body.style.overflow = 'hidden';
 }
 
 function closeModal(modalId) {
     document.getElementById(modalId).classList.remove('active');
+    document.body.style.overflow = '';
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 📝 ACTIONS (CRUD)
 // ═══════════════════════════════════════════════════════════════════════════════
+
+// 📚 Open Year Modal & Handle Modules
+function openYearModal(year) {
+    const modal = document.getElementById('modal-year');
+    const content = document.getElementById('year-modal-content');
+    const progress = APP_STATE.progress;
+    const curriculum = APP_STATE.curriculum;
+    
+    if (!curriculum) return;
+    
+    const yearKey = 'year' + year;
+    const yearData = curriculum[yearKey];
+    const yearProgress = progress && progress.byYear ? progress.byYear[yearKey] : [];
+    
+    content.innerHTML = `
+        <h2 style="color:var(--primary)">${yearData.emoji} Year ${year}: ${yearData.name}</h2>
+        <div class="module-list" style="margin-top:1rem">
+            ${yearData.modules.map((module, index) => {
+                const moduleProgress = yearProgress.find(p => p.Module === module);
+                const status = moduleProgress ? moduleProgress.Status : 'Locked';
+                let statusIcon = '🔒';
+                let btnHtml = '';
+                
+                if (status === 'Completed') statusIcon = '✅';
+                else if (status === 'In Progress') statusIcon = '📖';
+                
+                if (moduleProgress && status !== 'Completed') {
+                   btnHtml = `<button class="btn-secondary" style="padding:4px 8px; font-size:0.8rem" onclick="updateModuleStatus('${moduleProgress.ID}', '${status === 'In Progress' ? 'Completed' : 'In Progress'}')">${status === 'In Progress' ? 'Complete' : 'Start'}</button>`; 
+                }
+                
+                return `
+                    <div class="card" style="display:flex; align-items:center; gap:1rem; padding:1rem; margin-bottom:0.5rem">
+                        <span style="font-size:1.5rem">${statusIcon}</span>
+                        <div style="flex:1">
+                            <strong style="color:var(--text-main)">${module}</strong>
+                            <div style="font-size:0.8rem; color:var(--text-muted)">${status}</div>
+                        </div>
+                        ${btnHtml}
+                    </div>
+                `;
+            }).join('')}
+        </div>
+    `;
+    openModal('modal-year');
+}
+
+function updateModuleStatus(progressId, newStatus) {
+    showLoading(true);
+    google.script.run
+        .withSuccessHandler(res => {
+            if (res.success) {
+                showToast('success', 'Progress recorded!');
+                closeModal('modal-year');
+                loadDashboardData(APP_STATE.currentMemberId);
+            } else {
+                showToast('error', 'Failed to update module');
+            }
+            showLoading(false);
+        })
+        .updateModuleStatus(progressId, newStatus);
+}
 
 function quickRecordSabbat(name) {
     const year = new Date().getFullYear();
@@ -491,7 +560,7 @@ function viewGrimoireEntry(id) {
         <p class="entry-date">Inscribed: ${formatDisplayDate(entry.CreatedDate)}</p>
         <hr style="border-color: rgba(255,255,255,0.1); margin: 1rem 0;">
         <div style="white-space: pre-wrap; line-height: 1.8;">${entry.Content}</div>
-        <div class="form-actions">
+        <div style="margin-top:1.5rem; text-align:right">
             <button class="btn-secondary" style="border-color: var(--fire); color: var(--fire);" onclick="deleteEntry('${entry.ID}')">Burn Page</button>
         </div>
     `;
@@ -516,10 +585,25 @@ function deleteEntry(id) {
         .deleteGrimoireEntry(id);
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// 🔧 UTILITIES
-// ═══════════════════════════════════════════════════════════════════════════════
+// Rituals
+const RITUALS = {
+    circle: { title: "Casting the Circle", content: "<p>1. Cleanse the space...</p><p>2. Call the quarters...</p>" },
+    air: { title: "Element of Air", content: "<p>Hail to the East, Watchtower of Air...</p>" },
+    fire: { title: "Element of Fire", content: "<p>Hail to the South, Watchtower of Fire...</p>" },
+    water: { title: "Element of Water", content: "<p>Hail to the West, Watchtower of Water...</p>" },
+    earth: { title: "Element of Earth", content: "<p>Hail to the North, Watchtower of Earth...</p>" }
+};
 
+function openRitualModal(key) {
+    const ritual = RITUALS[key];
+    if(!ritual) return;
+    
+    const content = document.getElementById('ritual-modal-content');
+    content.innerHTML = `<h2>${ritual.title}</h2><div style="margin-top:1rem">${ritual.content}</div>`;
+    openModal('modal-ritual');
+}
+
+// 🔧 UTILITIES
 function showLoading(show) {
     const overlay = document.getElementById('loading-overlay');
     if (show) overlay.classList.add('active');
