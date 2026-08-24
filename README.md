@@ -66,28 +66,23 @@ Built on **Google Apps Script (V8 runtime)** and backed by reactive **Google She
 mindmap
   root((🌙 Magickal Mortalz))
     🏰 Covenstead
-      ::icon(fa fa-home)
       Lunar Phase Engine
       Announcements
       Quick RSVPs
     📚 The Path
-      ::icon(fa fa-book)
       Year 1 Neophyte
       Year 2 Dedicant
       Year 3 Initiate
       Year 4 Priest
     🌙 Wheel of the Year
-      ::icon(fa fa-calendar)
       8 Sacred Sabbats
       Full Moon Esbats
       Attendance Check-in
     📖 Digital Grimoire
-      ::icon(fa fa-scroll)
       Personal Spells
       Herbalism & Crystals
       Correspondences
     👥 Brotherhood Directory
-      ::icon(fa fa-users)
       Craft Names
       Elemental Affinities
       Profile Customization
